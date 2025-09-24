@@ -1,0 +1,5 @@
+{
+  "name": "Infographic Generator AI",
+  "description": "An AI-powered application that transforms raw text into beautiful, easy-to-digest infographics, summarizing key points, facts, and statistics.",
+  "requestFramePermissions": []
+}
