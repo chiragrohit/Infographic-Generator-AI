@@ -16,6 +16,17 @@
   }
 }
 </script>
+<style>
+  .highlightable-content .highlight {
+    cursor: pointer;
+    border-radius: 3px;
+    padding: 1px 2px;
+    transition: background-color 0.2s ease-in-out, filter 0.2s ease-in-out;
+  }
+  .highlightable-content .highlight:hover {
+    filter: brightness(1.2);
+  }
+</style>
 </head>
   <body class="bg-slate-900 text-white h-screen overflow-hidden">
     <div id="root" class="h-full"></div>

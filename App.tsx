@@ -47,6 +47,28 @@ const App: React.FC = () => {
     });
   }, [activeAnalysisId]);
 
+  const handleUpdateAnalysisField = useCallback((analysisId: string, fieldPath: string, value: any) => {
+    setAnalyses(prev =>
+      prev.map(analysis => {
+        if (analysis.id === analysisId) {
+          const newAnalysis = JSON.parse(JSON.stringify(analysis)); // Deep clone for immutability
+          const keys = fieldPath.split('.');
+          let current = newAnalysis;
+          for (let i = 0; i < keys.length - 1; i++) {
+            if (current[keys[i]] === undefined) {
+              console.error(`Invalid path ${fieldPath} for analysis`, analysis);
+              return analysis; // Return original if path is invalid
+            }
+            current = current[keys[i]];
+          }
+          current[keys[keys.length - 1]] = value;
+          return newAnalysis;
+        }
+        return analysis;
+      })
+    );
+  }, []);
+
   const activeAnalysis = analyses.find(a => a.id === activeAnalysisId);
 
   return (
@@ -67,7 +89,11 @@ const App: React.FC = () => {
       <main className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8">
         {activeAnalysis ? (
           <div className="animate-fade-in max-w-4xl mx-auto">
-            <InfographicDisplay data={activeAnalysis} />
+            <InfographicDisplay 
+              key={activeAnalysis.id} // Add key to force re-mount on analysis change
+              data={activeAnalysis} 
+              onUpdateField={handleUpdateAnalysisField}
+            />
           </div>
         ) : (
           <Welcome onNewAnalysis={() => setIsModalOpen(true)} />
