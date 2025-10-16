@@ -3,6 +3,11 @@ export interface KeyStat {
   label: string;
 }
 
+export interface StatGroup {
+  groupName: string;
+  stats: KeyStat[];
+}
+
 export enum GSPaper {
   GS1 = "General Studies - I",
   GS2 = "General Studies - II",
@@ -27,6 +32,6 @@ export interface InfographicData {
   title: string;
   summary: string;
   keyFacts: string[];
-  keyStats: KeyStat[];
+  keyStats: StatGroup[];
   upscInsights: UPSCInsight[];
 }

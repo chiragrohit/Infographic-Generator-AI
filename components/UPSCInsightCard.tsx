@@ -22,7 +22,8 @@ const HighlightablePoint: React.FC<{
     if (!selection || selection.isCollapsed || !contentRef.current) return;
     
     const range = selection.getRangeAt(0);
-    if (range.startContainer.parentElement?.closest('.highlight') || range.endContainer.parentElement?.closest('.highlight')) {
+    const parentElement = range.commonAncestorContainer.parentElement;
+    if (parentElement && parentElement.closest('.highlight')) {
       selection.removeAllRanges();
       return;
     }
@@ -31,7 +32,7 @@ const HighlightablePoint: React.FC<{
     const span = document.createElement('span');
     span.id = highlightId;
     span.className = 'highlight';
-    span.style.backgroundColor = 'rgba(74, 222, 128, 0.4)';
+    span.style.backgroundColor = 'var(--highlight-yellow)';
 
     try {
       range.surroundContents(span);
@@ -53,7 +54,7 @@ const HighlightablePoint: React.FC<{
   return (
     <p 
       ref={contentRef}
-      className="text-slate-300 text-sm mb-1 highlightable-content"
+      className="text-neutral-300 text-sm mb-1 highlightable-content"
       onMouseUp={handleMouseUp}
       onClick={handleClick}
       data-field-path={fieldPath}
@@ -70,9 +71,9 @@ const UPSCInsightCard: React.FC<UPSCInsightCardProps> = ({ insight, insightIndex
   }
 
   return (
-    <div className="bg-slate-900/70 p-4 rounded-lg border border-slate-700">
+    <div className="bg-neutral-900 p-4 rounded-lg border border-neutral-800">
       <h4 className="font-semibold text-cyan-400">{category}</h4>
-      <p className="text-xs text-slate-500 mb-3 italic">({syllabusDescription})</p>
+      <p className="text-xs text-neutral-500 mb-3 italic">({syllabusDescription})</p>
       <ul className="space-y-4">
         {points.map((pointItem, pointIndex) => (
           <li key={pointIndex} className="flex items-start gap-3">
@@ -86,7 +87,7 @@ const UPSCInsightCard: React.FC<UPSCInsightCardProps> = ({ insight, insightIndex
                 onUpdate={onUpdate}
                 openColorPicker={openColorPicker}
               />
-              <span className="inline-block bg-purple-500/20 text-purple-300 text-xs font-medium px-2 py-0.5 rounded-full">
+              <span className="inline-block bg-purple-500/10 text-purple-300 text-xs font-medium px-2 py-0.5 rounded">
                 {pointItem.syllabusTopic}
               </span>
             </div>

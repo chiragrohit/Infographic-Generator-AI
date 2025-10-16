@@ -6,17 +6,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Infographic Generator AI</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <script type="importmap">
 {
   "imports": {
     "react/": "https://aistudiocdn.com/react@^19.1.1/",
     "react": "https://aistudiocdn.com/react@^19.1.1",
     "react-dom/": "https://aistudiocdn.com/react-dom@^19.1.1/",
-    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.20.0"
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.20.0",
+    "html2canvas": "https://aistudiocdn.com/html2canvas@^1.4.1"
   }
 }
 </script>
 <style>
+  :root {
+    --highlight-yellow: rgba(235, 222, 123, 0.3);
+    --highlight-blue: rgba(122, 173, 229, 0.3);
+    --highlight-red: rgba(239, 144, 144, 0.3);
+    --highlight-green: rgba(137, 203, 142, 0.3);
+    --highlight-gray: rgba(155, 154, 151, 0.4);
+  }
+
+  html, body {
+    font-family: 'Inter', sans-serif;
+  }
+
   .highlightable-content .highlight {
     cursor: pointer;
     border-radius: 3px;
@@ -26,9 +42,25 @@
   .highlightable-content .highlight:hover {
     filter: brightness(1.2);
   }
+
+  /* Custom scrollbar for a more Notion-like feel */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #4a4a4a;
+    border-radius: 10px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #5a5a5a;
+  }
 </style>
 </head>
-  <body class="bg-slate-900 text-white h-screen overflow-hidden">
+  <body class="bg-neutral-950 text-white h-screen overflow-hidden">
     <div id="root" class="h-full"></div>
     <script type="module" src="/index.tsx"></script>
   </body>

@@ -16,7 +16,8 @@ const FactCard: React.FC<FactCardProps> = ({ fact, fieldPath, onUpdate, openColo
     if (!selection || selection.isCollapsed || !contentRef.current) return;
     
     const range = selection.getRangeAt(0);
-    if (range.startContainer.parentElement?.closest('.highlight') || range.endContainer.parentElement?.closest('.highlight')) {
+    const parentElement = range.commonAncestorContainer.parentElement;
+    if (parentElement && parentElement.closest('.highlight')) {
       selection.removeAllRanges();
       return;
     }
@@ -25,7 +26,7 @@ const FactCard: React.FC<FactCardProps> = ({ fact, fieldPath, onUpdate, openColo
     const span = document.createElement('span');
     span.id = highlightId;
     span.className = 'highlight';
-    span.style.backgroundColor = 'rgba(74, 222, 128, 0.4)';
+    span.style.backgroundColor = 'var(--highlight-yellow)';
 
     try {
       range.surroundContents(span);
@@ -45,13 +46,13 @@ const FactCard: React.FC<FactCardProps> = ({ fact, fieldPath, onUpdate, openColo
   }, [fieldPath, openColorPicker]);
 
   return (
-    <div className="bg-slate-900/70 p-4 rounded-lg border border-slate-700 flex items-start gap-4 transition-colors duration-300 hover:bg-slate-800">
+    <div className="p-4 rounded-lg flex items-start gap-4 transition-colors duration-200 hover:bg-neutral-900">
        <div className="flex-shrink-0 mt-1">
         <IconCheckCircle className="w-5 h-5 text-cyan-400" />
        </div>
       <p 
         ref={contentRef}
-        className="text-slate-300 text-sm highlightable-content flex-1"
+        className="text-neutral-300 text-sm highlightable-content flex-1"
         onMouseUp={handleMouseUp}
         onClick={handleClick}
         data-field-path={fieldPath}

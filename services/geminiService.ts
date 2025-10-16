@@ -29,21 +29,35 @@ const infographicSchema = {
     },
     keyStats: {
       type: Type.ARRAY,
-      description: "A list of 2 to 4 key statistics or numbers mentioned in the text.",
+      description: "A list of key statistics or numbers from the text, grouped by a relevant category. Generate as many groups and stats as are relevant.",
       items: {
         type: Type.OBJECT,
         properties: {
-          value: {
+          groupName: {
             type: Type.STRING,
-            description: "The numerical value or stat (e.g., '6.5m', '$10B', '20 years').",
+            description: "The name of the category for this group of stats (e.g., 'Telescope Specifications', 'Project Details')."
           },
-          label: {
-            type: Type.STRING,
-            description: "A brief label describing the stat (e.g., 'Mirror Diameter', 'Project Cost', 'Operational Lifespan').",
-          },
+          stats: {
+            type: Type.ARRAY,
+            description: "A list of statistics belonging to this group.",
+            items: {
+              type: Type.OBJECT,
+              properties: {
+                value: {
+                  type: Type.STRING,
+                  description: "The numerical value or stat (e.g., '6.5m', '$10B', '20 years').",
+                },
+                label: {
+                  type: Type.STRING,
+                  description: "A brief label describing the stat (e.g., 'Mirror Diameter', 'Project Cost', 'Operational Lifespan').",
+                },
+              },
+              required: ["value", "label"],
+            }
+          }
         },
-        required: ["value", "label"],
-      },
+        required: ["groupName", "stats"]
+      }
     },
     upscInsights: {
         type: Type.ARRAY,
@@ -92,7 +106,7 @@ const infographicSchema = {
 };
 
 export const generateInfographicData = async (text: string): Promise<InfographicData> => {
-  const prompt = `Analyze the following text and transform it into a concise, visually engaging infographic. Extract a suitable title, a top-level summary, key facts, and key statistics.
+  const prompt = `Analyze the following text and transform it into a concise, visually engaging infographic. Extract a suitable title, a top-level summary, and key facts. For key statistics, group them by a relevant category (e.g., 'Telescope Specifications', 'Financials', 'Discoveries'). Extract as many relevant statistics as possible and group them logically.
 Additionally, identify and categorize any relevant points according to the UPSC (Union Public Service Commission) Mains syllabus provided below.
 
 For each identified UPSC point, you MUST specify which specific syllabus topic it pertains to (e.g., 'Technology', 'Social Justice', 'History'). You MUST also include the full syllabus description for each General Studies paper category that has relevant points.
@@ -121,9 +135,8 @@ ${text}
       },
     });
 
-    const jsonString = response.text.trim();
-    const cleanedJsonString = jsonString.replace(/^```json\n?/, '').replace(/\n?```$/, '');
-    const parsedData = JSON.parse(cleanedJsonString);
+    // When responseMimeType is "application/json", response.text is a JSON string.
+    const parsedData = JSON.parse(response.text);
     
     const data: InfographicData = {
       id: `analysis-${new Date().toISOString()}-${Math.random().toString(36).substr(2, 9)}`,

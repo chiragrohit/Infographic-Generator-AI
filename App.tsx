@@ -72,7 +72,7 @@ const App: React.FC = () => {
   const activeAnalysis = analyses.find(a => a.id === activeAnalysisId);
 
   return (
-    <div className="flex h-screen bg-slate-900 text-slate-100 font-sans">
+    <div className="flex h-screen bg-neutral-950 text-neutral-200 font-sans">
       <Sidebar
         analyses={analyses}
         activeAnalysisId={activeAnalysisId}
@@ -86,7 +86,7 @@ const App: React.FC = () => {
         setIsOpen={setIsSidebarOpen}
       />
 
-      <main className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8">
+      <main className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-12">
         {activeAnalysis ? (
           <div className="animate-fade-in max-w-4xl mx-auto">
             <InfographicDisplay 

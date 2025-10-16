@@ -58,20 +58,20 @@ const NewAnalysisModal: React.FC<NewAnalysisModalProps> = ({ isOpen, onClose, on
 
   return (
     <div
-      className="fixed inset-0 z-40 flex items-center justify-center bg-black/60 backdrop-blur-sm animate-fade-in-fast"
+      className="fixed inset-0 z-40 flex items-center justify-center bg-black/70 backdrop-blur-sm animate-fade-in-fast"
       onClick={handleClose}
       aria-modal="true"
       role="dialog"
     >
       <div
-        className="relative bg-slate-800 rounded-xl shadow-2xl ring-1 ring-white/10 w-full max-w-2xl m-4 transform transition-all duration-300 ease-in-out"
+        className="relative bg-neutral-900 rounded-xl shadow-2xl ring-1 ring-white/10 w-full max-w-2xl m-4 transform transition-all duration-300 ease-in-out"
         onClick={e => e.stopPropagation()}
       >
-        <div className="flex items-center justify-between p-6 border-b border-slate-700">
-            <h2 className="text-2xl font-bold text-slate-100">New Infographic Analysis</h2>
+        <div className="flex items-center justify-between p-6 border-b border-neutral-800">
+            <h2 className="text-2xl font-bold text-neutral-100">New Infographic Analysis</h2>
             <button
                 onClick={handleClose}
-                className="p-1 rounded-full text-slate-400 hover:bg-slate-700 hover:text-white transition-colors"
+                className="p-1 rounded-full text-neutral-400 hover:bg-neutral-800 hover:text-white transition-colors"
                 aria-label="Close modal"
             >
                 <IconX className="w-6 h-6" />
@@ -83,7 +83,7 @@ const NewAnalysisModal: React.FC<NewAnalysisModalProps> = ({ isOpen, onClose, on
                 value={inputText}
                 onChange={(e) => setInputText(e.target.value)}
                 placeholder="Paste your content here..."
-                className="w-full h-64 p-4 bg-slate-900 border border-slate-700 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:outline-none transition-all duration-300 placeholder-slate-500 resize-none"
+                className="w-full h-64 p-4 bg-neutral-800 border border-neutral-700 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:outline-none transition-all duration-300 placeholder-neutral-500 resize-none"
                 disabled={isLoading}
                 aria-label="Content for analysis"
             />
@@ -94,10 +94,10 @@ const NewAnalysisModal: React.FC<NewAnalysisModalProps> = ({ isOpen, onClose, on
             )}
         </div>
 
-        <div className="flex flex-col sm:flex-row gap-4 items-center justify-between p-6 bg-slate-800/50 rounded-b-xl border-t border-slate-700">
+        <div className="flex flex-col sm:flex-row gap-4 items-center justify-between p-6 bg-neutral-900/80 rounded-b-xl border-t border-neutral-800">
               <button
                 onClick={handleExample}
-                className="w-full sm:w-auto px-5 py-2.5 text-sm font-medium text-cyan-400 bg-slate-700/50 rounded-lg hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-slate-800 focus:ring-cyan-500 transition-colors duration-300 disabled:opacity-50"
+                className="w-full sm:w-auto px-5 py-2.5 text-sm font-medium text-cyan-400 bg-neutral-800 rounded-lg hover:bg-neutral-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-neutral-900 focus:ring-cyan-500 transition-colors duration-300 disabled:opacity-50"
                 disabled={isLoading}
               >
                 Load Example
@@ -105,11 +105,11 @@ const NewAnalysisModal: React.FC<NewAnalysisModalProps> = ({ isOpen, onClose, on
               <button
                 onClick={handleGenerate}
                 disabled={isLoading || !inputText.trim()}
-                className="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3 font-semibold text-white bg-cyan-600 rounded-lg shadow-lg hover:bg-cyan-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-slate-800 focus:ring-cyan-500 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3 font-semibold text-white bg-cyan-600 rounded-lg shadow-lg hover:bg-cyan-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-neutral-900 focus:ring-cyan-500 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isLoading ? (
                   <>
-                    <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                       <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                       <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                     </svg>

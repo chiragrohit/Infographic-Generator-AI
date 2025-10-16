@@ -16,7 +16,9 @@ const SummaryCard: React.FC<SummaryCardProps> = ({ summary, onUpdate, openColorP
     if (!selection || selection.isCollapsed || !contentRef.current) return;
     
     const range = selection.getRangeAt(0);
-    if (range.startContainer.parentElement?.closest('.highlight') || range.endContainer.parentElement?.closest('.highlight')) {
+    // Prevent highlighting over existing highlights
+    const parentElement = range.commonAncestorContainer.parentElement;
+    if (parentElement && parentElement.closest('.highlight')) {
       selection.removeAllRanges();
       return;
     }
@@ -25,7 +27,7 @@ const SummaryCard: React.FC<SummaryCardProps> = ({ summary, onUpdate, openColorP
     const span = document.createElement('span');
     span.id = highlightId;
     span.className = 'highlight';
-    span.style.backgroundColor = 'rgba(74, 222, 128, 0.4)'; // Default green
+    span.style.backgroundColor = 'var(--highlight-yellow)'; // Default yellow
 
     try {
       range.surroundContents(span);
@@ -45,16 +47,16 @@ const SummaryCard: React.FC<SummaryCardProps> = ({ summary, onUpdate, openColorP
   }, [openColorPicker]);
 
   return (
-    <div className="bg-slate-900/70 p-6 rounded-lg border border-slate-700">
+    <div className="p-6 rounded-lg">
       <div className="flex items-start gap-4">
-        <div className="flex-shrink-0">
-            <IconDocumentText className="w-8 h-8 text-cyan-400" />
+        <div className="flex-shrink-0 mt-1">
+            <IconDocumentText className="w-7 h-7 text-neutral-400" />
         </div>
         <div>
-          <h3 className="text-lg font-semibold text-slate-200 mb-1">Summary</h3>
+          <h3 className="text-lg font-semibold text-neutral-300 mb-2">Summary</h3>
           <div 
             ref={contentRef}
-            className="text-slate-400 leading-relaxed highlightable-content"
+            className="text-neutral-400 leading-relaxed highlightable-content"
             onMouseUp={handleMouseUp}
             onClick={handleClick}
             data-field-path={fieldPath}
